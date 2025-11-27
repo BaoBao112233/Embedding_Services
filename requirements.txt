@@ -1,0 +1,23 @@
+# Use the PyTorch CPU wheels to avoid pulling CUDA packages.
+# The extra index URL points to the official CPU wheel repository.
+# Use a modern CPU build of PyTorch (>=2.6) so transformers that rely on
+# newer masking utilities work correctly. We remove torchaudio to avoid a
+# hard pin that can conflict with torch during upgrades; add it back only
+# if you need audio features.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.6
+
+# Pin numpy to <2 to avoid compatibility issues with some compiled extensions
+numpy<2
+
+# Core ML dependencies
+huggingface-hub>=0.17.0
+transformers>=4.35.0
+sentence-transformers>=2.2.2
+
+# Tests and service
+pytest>=7.0.0
+fastapi>=0.95.0
+uvicorn[standard]>=0.22.0
+# Ensure protobuf runtime is available for transformers and tokenizers
+protobuf>=4.21.0
